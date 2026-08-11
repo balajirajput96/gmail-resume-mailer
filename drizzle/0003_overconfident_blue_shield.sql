@@ -1,0 +1,1 @@
+ALTER TABLE `send_sessions` ADD `reviewOpenedAt` timestamp;

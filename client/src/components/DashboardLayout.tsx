@@ -21,15 +21,15 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
+import { FilePenLine, History, LogOut, PanelLeft, Send } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Page 1", path: "/" },
-  { icon: Users, label: "Page 2", path: "/some-path" },
+  { icon: FilePenLine, label: "Compose", path: "/" },
+  { icon: History, label: "Send history", path: "/history" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -168,9 +168,8 @@ function DashboardLayoutContent({
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-semibold tracking-tight truncate">
-                    Navigation
-                  </span>
+                  <span className="grid h-7 w-7 place-items-center rounded-[9px] bg-[#3a2a23] text-[#edb9a1] shadow-sm"><Send className="h-3.5 w-3.5 -rotate-12" /></span>
+                  <span className="font-serif text-lg tracking-[-0.03em] truncate">Resume Mailer</span>
                 </div>
               ) : null}
             </div>
@@ -255,7 +254,7 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex-1 p-4">{children}</main>
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </SidebarInset>
     </>
   );
