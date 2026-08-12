@@ -10,9 +10,12 @@
 - [x] Add send history with recipients, subject, time, and recipient-level statuses.
 - [x] Build a premium mobile-first responsive interface with accessible states.
 - [x] Add automated tests for authorization, confirmation, attachments, validation, and history.
-- [ ] Verify mobile and desktop rendering, then checkpoint the completed app.
+- [x] Verify mobile and desktop rendering, then checkpoint the completed app.
 - [ ] Provide the access link and Google OAuth setup instructions.
 - [x] Use only Gmail/Google OAuth, built-in storage, database, user sign-in, and GitHub integrations that are necessary for this application; do not expose unrelated connectors to users.
 - [x] Enforce a server-side review-opened marker and require it before the bulk-send confirmation can proceed.
 - [x] Add compose loading/error states and explicit accessibility labels for dynamic recipient inputs.
 - [x] Add automated coverage for send-session history and recipient-level delivery-status persistence.
+- [ ] Configure the Google Web OAuth Client ID and secret as server-side values, then verify the published Gmail connect flow.
+- [x] Evaluate all available relevant connected services for a safe autonomous source of the required Google Web OAuth client credentials.
+- [x] Assess supported background automation options without attempting to fabricate, scrape, or expose OAuth credentials.
