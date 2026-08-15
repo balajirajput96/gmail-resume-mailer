@@ -11,7 +11,8 @@ describe("Agent Workspace feedback states", () => {
     expect(source).toContain('id="image-prompt-error" role="alert"');
     expect(source).toContain("const submitImport = () => {");
     expect(source).toContain("const submitImage = () => {");
-    expect(source).toContain('import { toast } from "@/lib/notifications";');
+    expect(source).toContain('import { formatErrorMessage, toast } from "@/lib/notifications";');
+    expect(source).toContain("formatErrorMessage(error)");
     expect(source).toContain("current === repository.id ? null : repository.id");
     expect(source).toContain("const [hasInitializedSelection, setHasInitializedSelection] = useState(false);");
   });

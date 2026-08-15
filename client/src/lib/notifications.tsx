@@ -34,6 +34,19 @@ export const toast = {
   info: (message: string) => addNotice("info", message),
 };
 
+export function formatErrorMessage(error: unknown, fallback = "Something went wrong. Please try again.") {
+  const message = error instanceof Error ? error.message : typeof error === "string" ? error : "";
+  if (!message) return fallback;
+  try {
+    const parsed = JSON.parse(message);
+    if (Array.isArray(parsed) && typeof parsed[0]?.message === "string") return parsed[0].message;
+    if (typeof parsed?.message === "string") return parsed.message;
+  } catch {
+    // This is already a human-readable error message.
+  }
+  return message;
+}
+
 export function subscribeToNotifications(listener: (next: Notice[]) => void) {
   listeners.add(listener);
   listener([...notices]);

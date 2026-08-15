@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { Bot, CheckCircle2, ChevronRight, CircleDashed, Clock3, FileSearch, Github, ImagePlus, Loader2, Plus, ShieldCheck, Sparkles, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "@/lib/notifications";
+import { formatErrorMessage, toast } from "@/lib/notifications";
 
 type Repository = { id: number; fullName: string; url: string; defaultBranch: string; visibility: string; description: string | null };
 
@@ -59,7 +59,7 @@ function Workspace() {
   const importPublic = trpc.agent.github.importPublic.useMutation({
     onMutate: () => setImportError(null),
     onSuccess: async result => { setImportError(null); await refresh(); toast.success(`${result.imported} public repositories are ready for planning`); },
-    onError: error => { setImportError(error.message); toast.error(error.message); },
+    onError: error => { const message = formatErrorMessage(error); setImportError(message); toast.error(message); },
   });
   const addRepository = trpc.agent.repositories.add.useMutation({
     onSuccess: async repository => {
@@ -68,19 +68,19 @@ function Workspace() {
       setManualRepository({ fullName: "", url: "", defaultBranch: "main", visibility: "private", description: "" });
       toast.success("Repository added to this workspace");
     },
-    onError: error => toast.error(error.message),
+    onError: error => toast.error(formatErrorMessage(error)),
   });
   const createPlan = trpc.agent.jobs.createPlan.useMutation({
     onMutate: () => setPlanError(null),
     onSuccess: async () => { setPlanError(null); await refresh(); toast.success("AI plan prepared for review"); },
-    onError: error => { setPlanError(error.message); toast.error(error.message); },
+    onError: error => { const message = formatErrorMessage(error); setPlanError(message); toast.error(message); },
   });
-  const approve = trpc.agent.jobs.approve.useMutation({ onSuccess: async () => { await refresh(); toast.success("Plan approved. No external action was run."); }, onError: error => toast.error(error.message) });
-  const reject = trpc.agent.jobs.reject.useMutation({ onSuccess: async () => { await refresh(); toast.success("Plan rejected."); }, onError: error => toast.error(error.message) });
+  const approve = trpc.agent.jobs.approve.useMutation({ onSuccess: async () => { await refresh(); toast.success("Plan approved. No external action was run."); }, onError: error => toast.error(formatErrorMessage(error)) });
+  const reject = trpc.agent.jobs.reject.useMutation({ onSuccess: async () => { await refresh(); toast.success("Plan rejected."); }, onError: error => toast.error(formatErrorMessage(error)) });
   const generateImage = trpc.agent.media.generateImage.useMutation({
     onMutate: () => setImageError(null),
     onSuccess: async () => { setImageError(null); await media.refetch(); toast.success("Creative asset generated"); },
-    onError: error => { setImageError(error.message); toast.error(error.message); },
+    onError: error => { const message = formatErrorMessage(error); setImageError(message); toast.error(message); },
   });
 
   const submitPlan = () => {

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { clearNotificationsForTest, subscribeToNotifications, toast } from "./lib/notifications";
+import { clearNotificationsForTest, formatErrorMessage, subscribeToNotifications, toast } from "./lib/notifications";
 
 describe("in-app notifications", () => {
   afterEach(() => {
@@ -17,5 +17,9 @@ describe("in-app notifications", () => {
 
     expect(received.at(-1)).toEqual(["Enter a valid GitHub owner name", "Creative asset generated"]);
     unsubscribe();
+  });
+
+  it("extracts concise text from structured validation errors", () => {
+    expect(formatErrorMessage('[{"path":["fullName"],"message":"Use owner/repository format"}]')).toBe("Use owner/repository format");
   });
 });

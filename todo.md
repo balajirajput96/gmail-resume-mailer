@@ -40,14 +40,18 @@
 
 - [x] Fix production repository inventory import so external GitHub timestamps cannot be persisted as database timestamp values.
 
-- [ ] Browser-test post-fix Agent Workspace error states for invalid GitHub import input, no-repository planning, and invalid image prompt messaging.
+- [x] Browser-test post-fix Agent Workspace error states for invalid GitHub import input, no-repository planning, and invalid image prompt messaging.
 
-- [ ] Allow a selected repository to be deselected so users can intentionally return to the no-repository planning state.
+- [x] Allow a selected repository to be deselected so users can intentionally return to the no-repository planning state.
 
-- [ ] Preserve manual repository deselection instead of auto-selecting the first repository again.
+- [x] Preserve manual repository deselection instead of auto-selecting the first repository again.
 
 - [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
 
-- [ ] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.
+- [ ] Browser-test a published Agent Workspace server mutation failure and confirm its returned error is shown in the in-app notification viewport.
+
+- [ ] Normalize structured server validation errors into concise user-facing in-app notification messages.
+
+- [x] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.
 
 - [x] Add inline Agent Workspace validation messages as a reliable visible fallback for import, planning, and image errors.
