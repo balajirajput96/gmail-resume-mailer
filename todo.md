@@ -33,5 +33,7 @@
 - [x] Add a clickable AI-agent workspace UI with repository selection, job controls, status and history.
 - [x] Evaluate only relevant free/authorized AI and media integrations; document any credentials or paid-service dependencies instead of embedding keys.
 - [x] Re-run validation after final AI/media integration boundary documentation updates.
-- [ ] Test the agent workspace, publish a checkpoint and push the updated source to the private GitHub repository.
+- [x] Test the agent workspace, publish a checkpoint and push the updated source to the private GitHub repository.
+- [ ] Browser-test published Agent Workspace repository import, AI plan creation, approval/rejection, image generation, and relevant error states.
+- [ ] Fix published tRPC mutation authentication so protected Agent Workspace requests include the signed-in session cookie.
 - [x] Assess whether a safe, useful scheduled background job is possible without polling or attempting credential recovery.
