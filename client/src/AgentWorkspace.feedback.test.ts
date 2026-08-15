@@ -9,6 +9,7 @@ describe("Agent Workspace feedback states", () => {
     expect(source).toContain('id="github-import-error" role="alert"');
     expect(source).toContain("Choose a repository to enable plan creation.");
     expect(source).toContain('id="image-prompt-error" role="alert"');
+    expect(source).toContain("const submitImport = () => {");
+    expect(source).toContain("const submitImage = () => {");
   });
 });
-
