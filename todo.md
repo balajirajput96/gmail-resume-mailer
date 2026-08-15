@@ -44,4 +44,6 @@
 
 - [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
 
-- [ ] Add inline Agent Workspace validation messages as a reliable visible fallback for import, planning, and image errors.
+- [ ] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.
+
+- [x] Add inline Agent Workspace validation messages as a reliable visible fallback for import, planning, and image errors.

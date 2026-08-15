@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { Bot, CheckCircle2, ChevronRight, CircleDashed, Clock3, FileSearch, Github, ImagePlus, Loader2, Plus, ShieldCheck, Sparkles, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/lib/notifications";
 
 type Repository = { id: number; fullName: string; url: string; defaultBranch: string; visibility: string; description: string | null };
 

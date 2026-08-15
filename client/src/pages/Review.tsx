@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
+import { toast } from "@/lib/notifications";
 import { AlertTriangle, ArrowLeft, CheckCircle2, FileText, Loader2, Mail, Send } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { useLocation, useParams } from "wouter";
 
 function ReviewContent() {

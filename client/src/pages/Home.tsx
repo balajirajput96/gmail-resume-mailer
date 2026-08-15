@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { Check, FileText, Loader2, Mail, Plus, Send, Trash2, UploadCloud } from "lucide-react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/lib/notifications";
 import { useLocation } from "wouter";
 
 type Recipient = { email: string; firstName: string; company: string };
