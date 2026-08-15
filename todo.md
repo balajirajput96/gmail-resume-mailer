@@ -46,11 +46,11 @@
 
 - [x] Preserve manual repository deselection instead of auto-selecting the first repository again.
 
-- [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
+- [x] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
 
-- [ ] Browser-test a published Agent Workspace server mutation failure and confirm its returned error is shown in the in-app notification viewport.
+- [x] Browser-test a published Agent Workspace server mutation failure and confirm its returned error is shown in the in-app notification viewport.
 
-- [ ] Normalize structured server validation errors into concise user-facing in-app notification messages.
+- [x] Normalize structured server validation errors into concise user-facing in-app notification messages.
 
 - [x] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.
 
