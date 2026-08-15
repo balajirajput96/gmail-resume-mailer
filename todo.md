@@ -43,3 +43,5 @@
 - [ ] Browser-test post-fix Agent Workspace error states for invalid GitHub import input, no-repository planning, and invalid image prompt messaging.
 
 - [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
+
+- [ ] Add inline Agent Workspace validation messages as a reliable visible fallback for import, planning, and image errors.
