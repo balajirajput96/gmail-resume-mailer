@@ -19,8 +19,8 @@
 - [ ] Configure the Google Web OAuth Client ID and secret as server-side values, then verify the published Gmail connect flow.
 - [x] Evaluate all available relevant connected services for a safe autonomous source of the required Google Web OAuth client credentials.
 - [x] Assess supported background automation options without attempting to fabricate, scrape, or expose OAuth credentials.
-- [ ] Audit available GitHub, Google/Antigravity, Hugging Face and automation-related integrations without exposing credentials.
-- [ ] Define a lawful reference-analysis policy for user-owned repositories and explicitly selected public repositories.
+- [x] Audit available GitHub, Google/Antigravity, Hugging Face and automation-related integrations without exposing credentials.
+- [x] Define a lawful reference-analysis policy for user-owned repositories and explicitly selected public repositories.
 - [x] Add secure agent-workspace data models for repository metadata, user-initiated jobs, approvals and execution history.
 - [x] Build a GitHub repository inventory and selected-repository analysis workflow.
 - [ ] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
@@ -34,4 +34,4 @@
 - [x] Evaluate only relevant free/authorized AI and media integrations; document any credentials or paid-service dependencies instead of embedding keys.
 - [x] Re-run validation after final AI/media integration boundary documentation updates.
 - [ ] Test the agent workspace, publish a checkpoint and push the updated source to the private GitHub repository.
-- [ ] Assess whether a safe, useful scheduled background job is possible without polling or attempting credential recovery.
+- [x] Assess whether a safe, useful scheduled background job is possible without polling or attempting credential recovery.
