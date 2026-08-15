@@ -21,14 +21,15 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { FilePenLine, History, LogOut, PanelLeft, Send } from "lucide-react";
+import { Bot, FilePenLine, History, LogOut, PanelLeft, Send } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: FilePenLine, label: "Compose", path: "/" },
+  { icon: Bot, label: "Agent workspace", path: "/" },
+  { icon: FilePenLine, label: "Mail outreach", path: "/outreach" },
   { icon: History, label: "Send history", path: "/history" },
 ];
 
@@ -168,8 +169,8 @@ function DashboardLayoutContent({
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="grid h-7 w-7 place-items-center rounded-[9px] bg-[#3a2a23] text-[#edb9a1] shadow-sm"><Send className="h-3.5 w-3.5 -rotate-12" /></span>
-                  <span className="font-serif text-lg tracking-[-0.03em] truncate">Resume Mailer</span>
+                  <span className="grid h-7 w-7 place-items-center rounded-[9px] bg-[#252a47] text-[#bfc9ff] shadow-sm"><Bot className="h-3.5 w-3.5" /></span>
+                  <span className="font-serif text-lg tracking-[-0.03em] truncate">Agent Desk</span>
                 </div>
               ) : null}
             </div>

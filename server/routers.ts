@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { agentWorkspaceRouter } from "./routers/agentWorkspace";
 import { resumeMailerRouter } from "./routers/resumeMailer";
 
 export const appRouter = router({
@@ -17,6 +18,7 @@ export const appRouter = router({
       } as const;
     }),
   }),
+  agent: agentWorkspaceRouter,
   mailer: resumeMailerRouter,
 });
 

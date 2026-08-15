@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import AgentWorkspace from "./pages/AgentWorkspace";
 import Home from "./pages/Home";
 import History from "./pages/History";
 import Review from "./pages/Review";
@@ -12,7 +13,8 @@ function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={AgentWorkspace} />
+      <Route path={"/outreach"} component={Home} />
       <Route path={"/history"} component={History} />
       <Route path={"/review/:sessionId"} component={Review} />
       <Route path={"/404"} component={NotFound} />

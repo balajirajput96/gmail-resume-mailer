@@ -109,3 +109,66 @@ export const sendRecipients = mysqlTable(
   },
   table => [index("send_recipients_session_idx").on(table.sessionId)],
 );
+
+export const agentRepositories = mysqlTable(
+  "agent_repositories",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    userId: int("userId").notNull(),
+    fullName: varchar("fullName", { length: 255 }).notNull(),
+    url: varchar("url", { length: 2048 }).notNull(),
+    defaultBranch: varchar("defaultBranch", { length: 255 }).notNull().default("main"),
+    visibility: varchar("visibility", { length: 32 }).notNull().default("private"),
+    description: text("description"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => [uniqueIndex("agent_repositories_user_name_unique").on(table.userId, table.fullName)],
+);
+
+export const agentJobs = mysqlTable(
+  "agent_jobs",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    userId: int("userId").notNull(),
+    repositoryId: int("repositoryId").notNull(),
+    title: varchar("title", { length: 255 }).notNull(),
+    request: text("request").notNull(),
+    kind: mysqlEnum("kind", ["repository_analysis", "implementation_plan"]).notNull(),
+    status: mysqlEnum("status", ["queued", "planning", "awaiting_approval", "approved", "rejected", "failed"]).default("queued").notNull(),
+    model: varchar("model", { length: 120 }).notNull(),
+    plan: text("plan"),
+    output: text("output"),
+    evidence: text("evidence"),
+    approvalNote: text("approvalNote"),
+    reviewedAt: timestamp("reviewedAt"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => [index("agent_jobs_user_created_idx").on(table.userId, table.createdAt), index("agent_jobs_repository_idx").on(table.repositoryId)],
+);
+
+export const agentJobEvents = mysqlTable(
+  "agent_job_events",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    jobId: varchar("jobId", { length: 36 }).notNull(),
+    kind: varchar("kind", { length: 64 }).notNull(),
+    message: text("message").notNull(),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  table => [index("agent_job_events_job_created_idx").on(table.jobId, table.createdAt)],
+);
+
+export const agentMediaAssets = mysqlTable(
+  "agent_media_assets",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    userId: int("userId").notNull(),
+    prompt: text("prompt").notNull(),
+    model: varchar("model", { length: 120 }).notNull(),
+    assetUrl: varchar("assetUrl", { length: 2048 }).notNull(),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  table => [index("agent_media_assets_user_created_idx").on(table.userId, table.createdAt)],
+);
