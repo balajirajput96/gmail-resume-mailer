@@ -34,8 +34,12 @@
 - [x] Evaluate only relevant free/authorized AI and media integrations; document any credentials or paid-service dependencies instead of embedding keys.
 - [x] Re-run validation after final AI/media integration boundary documentation updates.
 - [x] Test the agent workspace, publish a checkpoint and push the updated source to the private GitHub repository.
-- [ ] Browser-test published Agent Workspace repository import, AI plan creation, approval/rejection, image generation, and relevant error states.
-- [ ] Fix published tRPC mutation authentication so protected Agent Workspace requests include the signed-in session cookie.
+- [x] Browser-test published Agent Workspace repository import, AI plan creation, approval/rejection, image generation, and relevant error states.
+- [x] Fix published tRPC mutation authentication so protected Agent Workspace requests include the signed-in session cookie.
 - [x] Assess whether a safe, useful scheduled background job is possible without polling or attempting credential recovery.
 
-- [ ] Fix production repository inventory import so external GitHub timestamps cannot be persisted as database timestamp values.
+- [x] Fix production repository inventory import so external GitHub timestamps cannot be persisted as database timestamp values.
+
+- [ ] Browser-test post-fix Agent Workspace error states for invalid GitHub import input, no-repository planning, and invalid image prompt messaging.
+
+- [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.

@@ -5,6 +5,7 @@ import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
+import { Toaster } from "./components/ui/sonner";
 import { startLogin } from "./const";
 import "./index.css";
 
@@ -76,6 +77,7 @@ createRoot(document.getElementById("root")!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>
       <App />
+      <Toaster position="top-right" richColors closeButton />
     </QueryClientProvider>
   </trpc.Provider>
 );
