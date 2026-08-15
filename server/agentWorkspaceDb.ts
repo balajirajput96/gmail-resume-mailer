@@ -32,7 +32,18 @@ export async function upsertAgentRepository(input: {
   description?: string | null;
 }) {
   const db = requireDb(await getDb());
-  await db.insert(agentRepositories).values(input).onDuplicateKeyUpdate({
+  // Persist only the workspace schema fields. GitHub inventory rows also carry
+  // `updatedAt` as an ISO string, which must not be forwarded to Drizzle's
+  // timestamp mapper (it expects a Date when an explicit value is supplied).
+  const values = {
+    userId: input.userId,
+    fullName: input.fullName,
+    url: input.url,
+    defaultBranch: input.defaultBranch,
+    visibility: input.visibility,
+    description: input.description ?? null,
+  };
+  await db.insert(agentRepositories).values(values).onDuplicateKeyUpdate({
     set: {
       url: input.url,
       defaultBranch: input.defaultBranch,

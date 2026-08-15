@@ -37,3 +37,5 @@
 - [ ] Browser-test published Agent Workspace repository import, AI plan creation, approval/rejection, image generation, and relevant error states.
 - [ ] Fix published tRPC mutation authentication so protected Agent Workspace requests include the signed-in session cookie.
 - [x] Assess whether a safe, useful scheduled background job is possible without polling or attempting credential recovery.
+
+- [ ] Fix production repository inventory import so external GitHub timestamps cannot be persisted as database timestamp values.
