@@ -33,6 +33,7 @@ function Workspace() {
   const overview = trpc.agent.overview.useQuery();
   const [owner, setOwner] = useState("balajirajput96");
   const [selectedRepositoryId, setSelectedRepositoryId] = useState<number | null>(null);
+  const [hasInitializedSelection, setHasInitializedSelection] = useState(false);
   const [title, setTitle] = useState("Repository architecture review");
   const [goal, setGoal] = useState("Review the repository context and prepare a safe, testable implementation plan. Do not write code or create external changes.");
   const [imagePrompt, setImagePrompt] = useState("An editorial product illustration for a secure AI agent workspace, deep indigo, soft lilac accents, no text");
@@ -46,8 +47,10 @@ function Workspace() {
   const media = trpc.agent.media.list.useQuery();
 
   useEffect(() => {
-    if (!selectedRepositoryId && repositories[0]) setSelectedRepositoryId(repositories[0].id);
-  }, [repositories, selectedRepositoryId]);
+    if (hasInitializedSelection || !repositories[0]) return;
+    setSelectedRepositoryId(repositories[0].id);
+    setHasInitializedSelection(true);
+  }, [hasInitializedSelection, repositories]);
 
   const refresh = async () => {
     await Promise.all([utils.agent.overview.invalidate(), utils.agent.repositories.list.invalidate(), utils.agent.jobs.list.invalidate()]);
