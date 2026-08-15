@@ -42,6 +42,8 @@
 
 - [ ] Browser-test post-fix Agent Workspace error states for invalid GitHub import input, no-repository planning, and invalid image prompt messaging.
 
+- [ ] Allow a selected repository to be deselected so users can intentionally return to the no-repository planning state.
+
 - [ ] Render global toast notifications so Agent Workspace validation and mutation errors are visible to users.
 
 - [ ] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.

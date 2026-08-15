@@ -12,5 +12,6 @@ describe("Agent Workspace feedback states", () => {
     expect(source).toContain("const submitImport = () => {");
     expect(source).toContain("const submitImage = () => {");
     expect(source).toContain('import { toast } from "@/lib/notifications";');
+    expect(source).toContain("current === repository.id ? null : repository.id");
   });
 });
