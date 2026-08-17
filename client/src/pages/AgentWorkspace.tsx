@@ -31,6 +31,7 @@ function statusStyle(status: string) {
 function Workspace() {
   const utils = trpc.useUtils();
   const overview = trpc.agent.overview.useQuery();
+  const githubStatus = trpc.agent.github.status.useQuery();
   const [owner, setOwner] = useState("balajirajput96");
   const [selectedRepositoryId, setSelectedRepositoryId] = useState<number | null>(null);
   const [hasInitializedSelection, setHasInitializedSelection] = useState(false);
@@ -59,6 +60,10 @@ function Workspace() {
   const importPublic = trpc.agent.github.importPublic.useMutation({
     onMutate: () => setImportError(null),
     onSuccess: async result => { setImportError(null); await refresh(); toast.success(`${result.imported} public repositories are ready for planning`); },
+    onError: error => { const message = formatErrorMessage(error); setImportError(message); toast.error(message); },
+  });
+  const importPrivate = trpc.agent.github.importPrivate.useMutation({
+    onSuccess: async result => { await refresh(); toast.success(`${result.imported} GitHub repositories are ready for planning`); },
     onError: error => { const message = formatErrorMessage(error); setImportError(message); toast.error(message); },
   });
   const addRepository = trpc.agent.repositories.add.useMutation({
@@ -123,7 +128,7 @@ function Workspace() {
       <div className="space-y-5">
         <section className="overflow-hidden rounded-3xl border border-[#dce1f5] bg-[#22263f] p-6 text-white shadow-[0_24px_70px_-38px_rgba(31,35,64,.9)]">
           <div className="flex items-start justify-between gap-4"><div><div className="grid h-10 w-10 place-items-center rounded-2xl bg-white/10"><Github className="h-5 w-5 text-[#bfc9ff]" /></div><h2 className="mt-5 text-xl font-semibold">Import public repositories</h2><p className="mt-2 max-w-md text-sm leading-6 text-[#c7cce8]">Bring public repository metadata into your private workspace. Your terminal and GitHub credentials are never copied into this app.</p></div><Badge className="border-white/15 bg-white/10 text-[#dfe4ff] hover:bg-white/10">Public API</Badge></div>
-          <div className="mt-6 space-y-2"><div className="flex flex-col gap-3 sm:flex-row"><Input value={owner} onChange={event => { setOwner(event.target.value); setImportError(null); }} aria-label="GitHub owner to import" aria-describedby={importError ? "github-import-error" : undefined} className="border-white/15 bg-white/10 text-white placeholder:text-[#aeb6d9]" placeholder="GitHub owner" /><Button disabled={importPublic.isPending} onClick={submitImport} className="bg-[#90a0ff] text-[#1e2443] hover:bg-[#acb7ff]">{importPublic.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}{importPublic.isPending ? "Importing…" : "Import inventory"}</Button></div>{importError ? <p id="github-import-error" role="alert" className="text-sm font-medium text-rose-200">{importError}</p> : null}</div>
+          <div className="mt-6 space-y-3"><div className="flex flex-col gap-3 sm:flex-row"><Input value={owner} onChange={event => { setOwner(event.target.value); setImportError(null); }} aria-label="GitHub owner to import" aria-describedby={importError ? "github-import-error" : undefined} className="border-white/15 bg-white/10 text-white placeholder:text-[#aeb6d9]" placeholder="GitHub owner" /><Button disabled={importPublic.isPending} onClick={submitImport} className="bg-[#90a0ff] text-[#1e2443] hover:bg-[#acb7ff]">{importPublic.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}{importPublic.isPending ? "Importing…" : "Import public"}</Button></div><div className="flex flex-wrap items-center gap-2 text-xs text-[#c7cce8]"><span>{githubStatus.data?.connected ? `Connected as @${githubStatus.data.githubLogin}` : "Private repositories need an explicit GitHub connection."}</span><Button size="sm" variant="outline" disabled={importPrivate.isPending || githubStatus.isLoading} onClick={() => githubStatus.data?.connected ? importPrivate.mutate() : (window.location.href = "/api/github/oauth/start")} className="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white">{importPrivate.isPending ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Github className="mr-1.5 h-3.5 w-3.5" />}{githubStatus.data?.connected ? "Import authorized repositories" : "Connect private GitHub"}</Button></div>{importError ? <p id="github-import-error" role="alert" className="text-sm font-medium text-rose-200">{importError}</p> : null}</div>
         </section>
 
         <section className="rounded-3xl border border-[#e3e6ef] bg-white p-6 shadow-[0_20px_55px_-38px_rgba(30,37,65,.45)]">

@@ -24,6 +24,8 @@
 - [x] Add secure agent-workspace data models for repository metadata, user-initiated jobs, approvals and execution history.
 - [x] Build a GitHub repository inventory and selected-repository analysis workflow.
 - [ ] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
+
+- [ ] Add encrypted server-side GitHub OAuth token storage, connect/callback routes, private inventory import, and regression coverage.
 - [x] Upgrade public selected-repository analysis to inspect a bounded root file inventory and safe manifest excerpts, then display evidence-informed findings.
 - [x] Add tests for public GitHub analysis helpers, including invalid input and empty/error response behavior.
 - [x] Add mocked GitHub fetch tests for non-OK inventory/evidence responses and missing README or package manifest handling.

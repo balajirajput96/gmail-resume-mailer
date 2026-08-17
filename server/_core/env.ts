@@ -10,4 +10,7 @@ export const ENV = {
   gmailClientId: process.env.GMAIL_OAUTH_CLIENT_ID ?? "",
   gmailClientSecret: process.env.GMAIL_OAUTH_CLIENT_SECRET ?? "",
   gmailRedirectUrl: process.env.GMAIL_OAUTH_REDIRECT_URL ?? "",
+  githubClientId: process.env.GITHUB_OAUTH_CLIENT_ID ?? "",
+  githubClientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET ?? "",
+  githubRedirectUrl: process.env.GITHUB_OAUTH_REDIRECT_URL ?? "",
 };

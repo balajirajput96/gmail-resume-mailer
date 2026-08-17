@@ -41,6 +41,22 @@ export const gmailConnections = mysqlTable(
 
 export type GmailConnection = typeof gmailConnections.$inferSelect;
 
+export const githubConnections = mysqlTable(
+  "github_connections",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    userId: int("userId").notNull(),
+    githubLogin: varchar("githubLogin", { length: 255 }).notNull(),
+    accessTokenCiphertext: text("accessTokenCiphertext").notNull(),
+    scopes: text("scopes").notNull(),
+    connectedAt: timestamp("connectedAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => [uniqueIndex("github_connections_user_unique").on(table.userId)],
+);
+
+export type GitHubConnection = typeof githubConnections.$inferSelect;
+
 export const resumes = mysqlTable(
   "resumes",
   {

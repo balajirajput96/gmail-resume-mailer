@@ -5,6 +5,9 @@ import { generateAgentPlan } from "../agentPlanner";
 import { buildEvidenceSummary } from "../agentEvidence";
 import { normalizeImagePrompt } from "../agentMedia";
 import { fetchPublicRepositoryEvidence, fetchPublicRepositoryInventory, validateGitHubOwner } from "../githubPublic";
+import { fetchAuthenticatedGitHubInventory } from "../githubPrivate";
+import { getGitHubConnection } from "../githubOAuthDb";
+import { decryptServerSecret } from "../security";
 import {
   approveAgentJob,
   completeAgentJobPlan,
@@ -48,6 +51,7 @@ export const agentWorkspaceRouter = router({
   }),
 
   github: router({
+    status: protectedProcedure.query(async ({ ctx }) => { const connection = await getGitHubConnection(ctx.user.id); return { connected: Boolean(connection), githubLogin: connection?.githubLogin ?? null }; }),
     importPublic: protectedProcedure.input(z.object({ owner: z.string().trim().min(1).max(39) })).mutation(async ({ ctx, input }) => {
       let repositories;
       try {
@@ -58,6 +62,7 @@ export const agentWorkspaceRouter = router({
       const saved = await Promise.all(repositories.map(repository => upsertAgentRepository({ userId: ctx.user.id, ...repository })));
       return { imported: saved.filter(Boolean).length, repositories: saved.filter(Boolean) };
     }),
+    importPrivate: protectedProcedure.mutation(async ({ ctx }) => { const connection = await getGitHubConnection(ctx.user.id); if (!connection) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Connect GitHub before importing private repositories" }); let repositories; try { repositories = await fetchAuthenticatedGitHubInventory(decryptServerSecret(connection.accessTokenCiphertext)); } catch (error) { throw new TRPCError({ code: "BAD_REQUEST", message: error instanceof Error ? error.message : "GitHub private repository inventory could not be loaded" }); } const saved = await Promise.all(repositories.map(repository => upsertAgentRepository({ userId: ctx.user.id, ...repository }))); return { imported: saved.filter(Boolean).length, repositories: saved.filter(Boolean) }; }),
   }),
 
   media: router({

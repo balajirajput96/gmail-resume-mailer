@@ -15,5 +15,7 @@ describe("Agent Workspace feedback states", () => {
     expect(source).toContain("formatErrorMessage(error)");
     expect(source).toContain("current === repository.id ? null : repository.id");
     expect(source).toContain("const [hasInitializedSelection, setHasInitializedSelection] = useState(false);");
+    expect(source).toContain("trpc.agent.github.status.useQuery()");
+    expect(source).toContain("Connect private GitHub");
   });
 });
