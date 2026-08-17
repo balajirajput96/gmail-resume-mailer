@@ -17,6 +17,8 @@
 - [x] Add compose loading/error states and explicit accessibility labels for dynamic recipient inputs.
 - [x] Add automated coverage for send-session history and recipient-level delivery-status persistence.
 - [ ] Configure the Google Web OAuth Client ID and secret as server-side values, then verify the published Gmail connect flow.
+
+- [ ] Replace invalid Gmail OAuth credentials with a valid Google OAuth 2.0 Web client pair when credential setup resumes.
 - [x] Evaluate all available relevant connected services for a safe autonomous source of the required Google Web OAuth client credentials.
 - [x] Assess supported background automation options without attempting to fabricate, scrape, or expose OAuth credentials.
 - [x] Audit available GitHub, Google/Antigravity, Hugging Face and automation-related integrations without exposing credentials.
@@ -57,3 +59,19 @@
 - [x] Replace non-rendering production Sonner notifications with a tested in-app notification viewport for active workflows.
 
 - [x] Add inline Agent Workspace validation messages as a reliable visible fallback for import, planning, and image errors.
+
+- [x] Audit owned GitHub repositories and recent workflow failures before making any targeted repairs.
+- [x] Reproduce, test, and repair the four concrete audited workflow cases without rebasing, force-pushing, or broad unverified edits.
+
+- [x] Fix duplicated pnpm version configuration in automation-control-center-app validation workflow.
+- [x] Fix missing Docker image namespace/tag construction in github-mcp-serve build workflow.
+
+- [x] Audit the remaining recent failed GitHub Actions runs in owned repositories and record each final disposition.
+
+- [x] Resolve or document stale queued Dependabot runs in github-dashboard and sellbuilding-ai-agent without modifying application code unnecessarily.
+
+- [x] Document that a canceled stale Dependabot run cannot be restarted by GitHub API and requires a future compatible Dependabot event or workflow dispatch trigger.
+
+- [x] Record a final disposition for every remaining recent workflow failure, including explicit exclusion of upstream fork repositories from direct modification.
+
+- [x] Verify that every reviewed non-fork, non-stale failure either has a newer successful main-branch run or a dedicated audited recovery action.
