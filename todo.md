@@ -75,3 +75,11 @@
 - [x] Record a final disposition for every remaining recent workflow failure, including explicit exclusion of upstream fork repositories from direct modification.
 
 - [x] Verify that every reviewed non-fork, non-stale failure either has a newer successful main-branch run or a dedicated audited recovery action.
+
+- [x] Re-inventory all recent failed GitHub Actions runs in user-owned repositories and exclude upstream forks from direct modification.
+- [x] Diagnose and repair each reproducible owned-repository workflow failure without rebasing or force-pushing.
+- [x] Trigger or monitor replacement workflow runs and record verification status for every repaired workflow.
+- [ ] Keep Gmail Web OAuth credential validation deferred until the user resumes that setup.
+
+- [x] Replace the daily job scanner's rebase-based push retry with a rebase-free artifact snapshot and retry strategy.
+- [ ] Recheck GitHub-managed queued Dependabot events in gmail-resume-mailer and pharma-qa-job-tracker when GitHub scheduler capacity advances.
