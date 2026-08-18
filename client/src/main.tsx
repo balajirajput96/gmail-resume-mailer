@@ -8,6 +8,7 @@ import App from "./App";
 import { NotificationViewport } from "./lib/notifications";
 import { startLogin } from "./const";
 import "./index.css";
+import "./lib/analytics";
 
 const queryClient = new QueryClient();
 
