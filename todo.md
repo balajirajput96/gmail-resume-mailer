@@ -25,9 +25,9 @@
 - [x] Define a lawful reference-analysis policy for user-owned repositories and explicitly selected public repositories.
 - [x] Add secure agent-workspace data models for repository metadata, user-initiated jobs, approvals and execution history.
 - [x] Build a GitHub repository inventory and selected-repository analysis workflow.
-- [ ] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
+- [x] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
 
-- [ ] Add encrypted server-side GitHub OAuth token storage, connect/callback routes, private inventory import, and regression coverage.
+- [x] Add encrypted server-side GitHub OAuth token storage, connect/callback routes, private inventory import, and regression coverage.
 - [x] Upgrade public selected-repository analysis to inspect a bounded root file inventory and safe manifest excerpts, then display evidence-informed findings.
 - [x] Add tests for public GitHub analysis helpers, including invalid input and empty/error response behavior.
 - [x] Add mocked GitHub fetch tests for non-OK inventory/evidence responses and missing README or package manifest handling.
@@ -83,3 +83,11 @@
 
 - [x] Replace the daily job scanner's rebase-based push retry with a rebase-free artifact snapshot and retry strategy.
 - [ ] Recheck GitHub-managed queued Dependabot events in gmail-resume-mailer and pharma-qa-job-tracker when GitHub scheduler capacity advances.
+- [ ] Perform an interactive GitHub OAuth authorization and private-repository import from the published Agent Desk.
+
+- [x] Refresh the complete owned-repository GitHub Actions inventory and isolate currently failed workflows from historical or GitHub-managed queue events.
+- [x] Apply evidence-backed, non-history-rewriting code or workflow repairs for active owned-repository failures.
+- [x] Assess and configure a low-frequency scheduled workflow-health recheck that does not create inappropriate continuous polling or use unrelated services.
+- [x] Resolve the vscode-copilot-cha Dependabot fast-uri security-update failure with a tested lockfile-level dependency remediation.
+- [x] Record a replacement GitHub-managed Dependabot run for the vscode-copilot-cha dependency fix, or document why no manual replacement run can be triggered.
+- [x] Add regression tests for GitHub OAuth state validation, token exchange, and encrypted access-token persistence.

@@ -12,3 +12,17 @@ The authenticated audit covered **29 non-fork, non-archived repositories**. Hist
 | `gmail-resume-mailer` and `pharma-qa-job-tracker` Dependabot runs | Their pending dynamic Dependabot runs are GitHub-managed queue events, not user-authored workflow code. The available token cannot inspect annotations and the events do not expose a workflow-dispatch replacement. | Retained as external queue state; no application code was changed. |
 
 > No rebase or force-push was used for the repaired daily workflow. Its retry logic preserves the generated artifacts before refreshing to `origin/main`, then creates a fresh fast-forwardable commit on each retry.
+
+## Full Account Refresh — 19 August 2026
+
+The refreshed authenticated audit covered **38 non-fork, non-archived repositories**. It found 25 historical workflows with newer successful runs and 64 canceled or queued GitHub-managed dependency events. The outstanding path-named runs in `ai-automation-platform` and `acting-career-automation` correspond to superseded workflow names; their current named workflows have succeeding replacements. The old Copilot cloud-agent run in `vscode-copilot-cha` was tied to an unavailable provider model and is not present in current workflow configuration.
+
+| Active repair | Change | Validation status |
+|---|---|---|
+| `vscode-copilot-cha` dependency update | Pinned indirect `fast-uri` to patched compatible release `3.1.5` in the client override and regenerated its lockfile. | `npm ci --ignore-scripts` and `npm run build` completed successfully. Commit `4936c40` was pushed to `main` without rebase or force-push. |
+| `vscode-copilot-cha` Dependabot update job | A later replacement dynamic update run `32097981865` completed successfully after the recorded failed update `32097980472`. | The Dependabot service itself owns scheduling of subsequent security-update runs. The repository exposes only the daily scanner as a manually dispatchable workflow, so an exact Dependabot replacement run cannot be manually triggered after commit `4936c40`. |
+| Remaining dynamic queues | The current queued `open-assistant` dependency update and older canceled dependency jobs are GitHub-managed scheduling states, rather than reproducible application-code failures. | Retained for low-frequency recheck rather than altered with unrelated repository changes. |
+
+## Ongoing Review
+
+A daily workflow-health review is active at **09:15 Asia/Kolkata**. It is intentionally limited to the GitHub and Google Gemini integrations. Each run reviews non-fork repositories, separates GitHub-managed dependency events from code failures, and permits only evidence-backed repair work that preserves Git history; it does not use force-push or rebase.
