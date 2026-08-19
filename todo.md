@@ -91,3 +91,8 @@
 - [x] Resolve the vscode-copilot-cha Dependabot fast-uri security-update failure with a tested lockfile-level dependency remediation.
 - [x] Record a replacement GitHub-managed Dependabot run for the vscode-copilot-cha dependency fix, or document why no manual replacement run can be triggered.
 - [x] Add regression tests for GitHub OAuth state validation, token exchange, and encrypted access-token persistence.
+
+- [x] Review dependency advisories from the stable lockfile and separate safe targeted fixes from broad breaking update proposals.
+- [x] Preserve the verified runtime dependency graph unless a targeted remediation passes the full test suite and server startup validation.
+
+- [x] Document the current stable-lockfile dependency advisory triage, including why broad automated updates were rejected.
