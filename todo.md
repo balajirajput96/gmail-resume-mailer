@@ -11,7 +11,7 @@
 - [x] Build a premium mobile-first responsive interface with accessible states.
 - [x] Add automated tests for authorization, confirmation, attachments, validation, and history.
 - [x] Verify mobile and desktop rendering, then checkpoint the completed app.
-- [ ] Provide the access link and Google OAuth setup instructions.
+- [x] Provide the access link and Google OAuth setup instructions.
 - [x] Use only Gmail/Google OAuth, built-in storage, database, user sign-in, and GitHub integrations that are necessary for this application; do not expose unrelated connectors to users.
 - [x] Enforce a server-side review-opened marker and require it before the bulk-send confirmation can proceed.
 - [x] Add compose loading/error states and explicit accessibility labels for dynamic recipient inputs.
