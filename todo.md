@@ -75,3 +75,19 @@
 - [x] Record a final disposition for every remaining recent workflow failure, including explicit exclusion of upstream fork repositories from direct modification.
 
 - [x] Verify that every reviewed non-fork, non-stale failure either has a newer successful main-branch run or a dedicated audited recovery action.
+
+- [x] Re-inventory all recent failed GitHub Actions runs in user-owned repositories and exclude upstream forks from direct modification.
+- [x] Diagnose and repair each reproducible owned-repository workflow failure without rebasing or force-pushing.
+- [x] Trigger or monitor replacement workflow runs and record verification status for every repaired workflow.
+- [ ] Keep Gmail Web OAuth credential validation deferred until the user resumes that setup.
+
+- [x] Replace the daily job scanner's rebase-based push retry with a rebase-free artifact snapshot and retry strategy.
+- [x] Recheck GitHub-managed queued Dependabot events in gmail-resume-mailer and pharma-qa-job-tracker when GitHub scheduler capacity advances.
+- [ ] Perform an interactive GitHub OAuth authorization and private-repository import from the published Agent Desk.
+
+- [x] Refresh the complete owned-repository GitHub Actions inventory and isolate currently failed workflows from historical or GitHub-managed queue events.
+- [x] Apply evidence-backed, non-history-rewriting code or workflow repairs for active owned-repository failures.
+- [x] Assess and configure a low-frequency scheduled workflow-health recheck that does not create inappropriate continuous polling or use unrelated services.
+- [x] Resolve the vscode-copilot-cha Dependabot fast-uri security-update failure with a tested lockfile-level dependency remediation.
+- [x] Record a replacement GitHub-managed Dependabot run for the vscode-copilot-cha dependency fix, or document why no manual replacement run can be triggered.
+- [x] Add regression tests for GitHub OAuth state validation, token exchange, and encrypted access-token persistence.
