@@ -25,9 +25,9 @@
 - [x] Define a lawful reference-analysis policy for user-owned repositories and explicitly selected public repositories.
 - [x] Add secure agent-workspace data models for repository metadata, user-initiated jobs, approvals and execution history.
 - [x] Build a GitHub repository inventory and selected-repository analysis workflow.
-- [ ] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
+- [x] Implement authenticated GitHub inventory for private repositories through a dedicated production server-side OAuth integration when credentials are provisioned.
 
-- [ ] Add encrypted server-side GitHub OAuth token storage, connect/callback routes, private inventory import, and regression coverage.
+- [x] Add encrypted server-side GitHub OAuth token storage, connect/callback routes, private inventory import, and regression coverage.
 - [x] Upgrade public selected-repository analysis to inspect a bounded root file inventory and safe manifest excerpts, then display evidence-informed findings.
 - [x] Add tests for public GitHub analysis helpers, including invalid input and empty/error response behavior.
 - [x] Add mocked GitHub fetch tests for non-OK inventory/evidence responses and missing README or package manifest handling.
@@ -91,3 +91,8 @@
 - [x] Resolve the vscode-copilot-cha Dependabot fast-uri security-update failure with a tested lockfile-level dependency remediation.
 - [x] Record a replacement GitHub-managed Dependabot run for the vscode-copilot-cha dependency fix, or document why no manual replacement run can be triggered.
 - [x] Add regression tests for GitHub OAuth state validation, token exchange, and encrypted access-token persistence.
+
+- [x] Review dependency advisories from the stable lockfile and separate safe targeted fixes from broad breaking update proposals.
+- [x] Preserve the verified runtime dependency graph unless a targeted remediation passes the full test suite and server startup validation.
+
+- [x] Document the current stable-lockfile dependency advisory triage, including why broad automated updates were rejected.
