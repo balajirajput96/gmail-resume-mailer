@@ -26,3 +26,5 @@ The refreshed authenticated audit covered **38 non-fork, non-archived repositori
 ## Ongoing Review
 
 A daily workflow-health review is active at **09:15 Asia/Kolkata**. It is intentionally limited to the GitHub and Google Gemini integrations. Each run reviews non-fork repositories, separates GitHub-managed dependency events from code failures, and permits only evidence-backed repair work that preserves Git history; it does not use force-push or rebase.
+
+The verified application checkpoint is also preserved in the private GitHub repository on branch `manus-checkpoint-819ce2fe`. This protected branch was created because the backup default branch had an independent history; it avoids overwriting concurrent work while retaining the complete tested snapshot for a later review or merge.
