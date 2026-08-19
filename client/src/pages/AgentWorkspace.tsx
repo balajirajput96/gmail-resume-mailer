@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
-import { Bot, CheckCircle2, ChevronRight, CircleDashed, Clock3, FileSearch, Github, ImagePlus, Loader2, Plus, ShieldCheck, Sparkles, XCircle } from "lucide-react";
+import { Bot, CheckCircle2, ChevronRight, CircleDashed, Clock3, ExternalLink, FileSearch, Github, ImagePlus, Loader2, Plus, ShieldCheck, Sparkles, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { formatErrorMessage, toast } from "@/lib/notifications";
 
@@ -26,6 +26,20 @@ function statusStyle(status: string) {
   if (status === "approved") return "border-emerald-300 bg-emerald-50 text-emerald-800";
   if (status === "rejected" || status === "failed") return "border-rose-300 bg-rose-50 text-rose-800";
   return "border-slate-200 bg-slate-50 text-slate-700";
+}
+
+const integrationLinks = [
+  { label: "GitHub OAuth apps", href: "https://github.com/settings/developers", detail: "Create or manage the OAuth app used for private repository import." },
+  { label: "Google Cloud credentials", href: "https://console.cloud.google.com/apis/credentials", detail: "Create or rotate server-side OAuth client credentials and API keys." },
+  { label: "Gemini API keys", href: "https://aistudio.google.com/apikey", detail: "Manage Gemini keys without placing them in source control." },
+  { label: "Antigravity CLI authentication", href: "https://antigravity.google/docs/cli/install", detail: "Follow the official local sign-in or Gemini API-key setup guide." },
+] as const;
+
+function IntegrationLinks() {
+  return <section className="rounded-3xl border border-[#e3e6ef] bg-[#fbfcff] p-5 shadow-[0_20px_55px_-38px_rgba(30,37,65,.35)]" aria-labelledby="integration-links-title">
+    <div className="flex items-start gap-3"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#eef0ff] text-[#596bd4]"><ExternalLink className="h-4 w-4" /></span><div><h2 id="integration-links-title" className="text-lg font-semibold text-[#25293e]">Integration setup links</h2><p className="mt-1 text-sm leading-5 text-muted-foreground">Use the provider’s own settings page. This workspace never displays or stores provider secrets in the browser.</p></div></div>
+    <div className="mt-4 grid gap-2 sm:grid-cols-2">{integrationLinks.map(link => <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="group rounded-2xl border border-[#e0e4f4] bg-white p-3 transition-colors hover:border-[#9aa7ed] hover:bg-[#f5f6ff]"><span className="flex items-center justify-between gap-2 text-sm font-medium text-[#3e4c9d]"><span>{link.label}</span><ExternalLink className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span><span className="mt-1 block text-xs leading-5 text-[#69718c]">{link.detail}</span></a>)}</div>
+  </section>;
 }
 
 function Workspace() {
@@ -130,6 +144,7 @@ function Workspace() {
           <div className="flex items-start justify-between gap-4"><div><div className="grid h-10 w-10 place-items-center rounded-2xl bg-white/10"><Github className="h-5 w-5 text-[#bfc9ff]" /></div><h2 className="mt-5 text-xl font-semibold">Import public repositories</h2><p className="mt-2 max-w-md text-sm leading-6 text-[#c7cce8]">Bring public repository metadata into your private workspace. Your terminal and GitHub credentials are never copied into this app.</p></div><Badge className="border-white/15 bg-white/10 text-[#dfe4ff] hover:bg-white/10">Public API</Badge></div>
           <div className="mt-6 space-y-3"><div className="flex flex-col gap-3 sm:flex-row"><Input value={owner} onChange={event => { setOwner(event.target.value); setImportError(null); }} aria-label="GitHub owner to import" aria-describedby={importError ? "github-import-error" : undefined} className="border-white/15 bg-white/10 text-white placeholder:text-[#aeb6d9]" placeholder="GitHub owner" /><Button disabled={importPublic.isPending} onClick={submitImport} className="bg-[#90a0ff] text-[#1e2443] hover:bg-[#acb7ff]">{importPublic.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}{importPublic.isPending ? "Importing…" : "Import public"}</Button></div><div className="flex flex-wrap items-center gap-2 text-xs text-[#c7cce8]"><span>{githubStatus.data?.connected ? `Connected as @${githubStatus.data.githubLogin}` : "Private repositories need an explicit GitHub connection."}</span><Button size="sm" variant="outline" disabled={importPrivate.isPending || githubStatus.isLoading} onClick={() => githubStatus.data?.connected ? importPrivate.mutate() : (window.location.href = "/api/github/oauth/start")} className="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white">{importPrivate.isPending ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Github className="mr-1.5 h-3.5 w-3.5" />}{githubStatus.data?.connected ? "Import authorized repositories" : "Connect private GitHub"}</Button></div>{importError ? <p id="github-import-error" role="alert" className="text-sm font-medium text-rose-200">{importError}</p> : null}</div>
         </section>
+        <IntegrationLinks />
 
         <section className="rounded-3xl border border-[#e3e6ef] bg-white p-6 shadow-[0_20px_55px_-38px_rgba(30,37,65,.45)]">
           <div className="flex items-center justify-between gap-4"><div><h2 className="text-xl font-semibold text-[#25293e]">Repositories</h2><p className="mt-1 text-sm text-muted-foreground">Select a scoped repository for a planning job.</p></div><Badge variant="outline" className="border-[#d8def7] text-[#596bd4]">{repositories.length} available</Badge></div>

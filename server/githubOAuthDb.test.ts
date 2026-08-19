@@ -1,4 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+vi.hoisted(() => {
+  process.env.JWT_SECRET ??= "test-jwt-secret";
+});
+
 import { decryptServerSecret, encryptServerSecret } from "./security";
 
 const state = vi.hoisted(() => ({ row: undefined as Record<string, unknown> | undefined, inserted: [] as Record<string, unknown>[] }));

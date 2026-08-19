@@ -1,4 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+vi.hoisted(() => {
+  process.env.JWT_SECRET ??= "test-jwt-secret";
+  process.env.GITHUB_OAUTH_CLIENT_ID ??= "test-github-client-id";
+  process.env.GITHUB_OAUTH_CLIENT_SECRET ??= "test-github-client-secret";
+});
+
 import { createGitHubOAuthState, exchangeGitHubOAuthCode, parseGitHubOAuthState } from "./githubOAuth";
 
 const originalFetch = global.fetch;

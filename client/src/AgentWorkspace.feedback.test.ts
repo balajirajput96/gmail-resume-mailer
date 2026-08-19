@@ -18,4 +18,20 @@ describe("Agent Workspace feedback states", () => {
     expect(source).toContain("trpc.agent.github.status.useQuery()");
     expect(source).toContain("Connect private GitHub");
   });
+
+  it("exposes official integration setup links without moving secrets into the UI", () => {
+    const workspaceSource = readFileSync(resolve(process.cwd(), "client/src/pages/AgentWorkspace.tsx"), "utf8");
+    const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
+    for (const url of [
+      "https://github.com/settings/developers",
+      "https://console.cloud.google.com/apis/credentials",
+      "https://aistudio.google.com/apikey",
+      "https://antigravity.google/docs/cli/install",
+    ]) expect(workspaceSource).toContain(url);
+    expect(homeSource).toContain("https://console.cloud.google.com/apis/library/gmail.googleapis.com");
+    expect(workspaceSource).toContain('target="_blank" rel="noreferrer"');
+    expect(homeSource).toContain('target="_blank" rel="noreferrer"');
+    expect(workspaceSource).toContain("never displays or stores provider secrets in the browser");
+    expect(homeSource).toContain("Authorization is retained server-side and never exposed here.");
+  });
 });
