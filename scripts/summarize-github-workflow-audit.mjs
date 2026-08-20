@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { classifyWorkflowEntry } from "./githubWorkflowTriage.mjs";
 
 const source = "/home/ubuntu/gmail-resume-mailer/docs/github-actions-inventory-2026-08-18.json";
 const destination = "/home/ubuntu/gmail-resume-mailer/docs/github-actions-actionable-summary-2026-08-18.md";
@@ -12,71 +13,61 @@ const rows = audit.repositories.flatMap(repo => {
   }
 
   return [...historicalByName.values()].map(historical => {
-    const latest = latestByName.get(historical.name);
-    const latestOutcome = latest?.conclusion ?? latest?.status ?? "not found";
-    const status = latestOutcome === "success"
-      ? "Recovered"
-      : historical.conclusion === "cancelled" && latestOutcome === "cancelled"
-        ? "Canceled dependency automation"
-        : "Needs diagnosis";
+    const classified = classifyWorkflowEntry(repo, historical, latestByName.get(historical.name));
+    const latest = classified.latest;
     return {
       repository: repo.fullName,
       workflow: historical.name,
       historicalConclusion: historical.conclusion,
-      historicalCreatedAt: historical.createdAt,
-      latestOutcome,
+      latestOutcome: latest?.conclusion ?? latest?.status ?? "not found",
       latestCreatedAt: latest?.createdAt ?? "—",
-      status,
       latestUrl: latest?.htmlUrl ?? historical.htmlUrl,
+      resolution: classified.resolution,
+      status: classified.status,
     };
   });
 });
 
-const byStatus = {
-  recovered: rows.filter(row => row.status === "Recovered"),
-  canceled: rows.filter(row => row.status === "Canceled dependency automation"),
-  needsDiagnosis: rows.filter(row => row.status === "Needs diagnosis"),
-};
+const recovered = rows.filter(row => row.status.startsWith("Recovered"));
+const canceled = rows.filter(row => row.status === "Canceled dependency automation");
+const external = rows.filter(row => row.status.includes("GitHub-managed") || row.status.includes("GitHub dynamic"));
+const needsDiagnosis = rows.filter(row => row.status === "Needs diagnosis");
 
 const table = entries => entries.length
-  ? entries.map(row => `| \`${row.repository}\` | ${row.workflow.replaceAll("|", "\\|")} | ${row.historicalConclusion} | [${row.latestOutcome}](${row.latestUrl}) | ${row.latestCreatedAt} |`).join("\n")
+  ? entries.map(row => `| \`${row.repository}\` | ${row.workflow.replaceAll("|", "\\|")} | ${row.historicalConclusion} | [${row.latestOutcome}](${row.latestUrl}) | ${row.resolution} |`).join("\n")
   : "| — | — | — | — | — |";
 
-const markdown = `# GitHub Actions Current Triage — 18 August 2026
+const markdown = `# GitHub Actions Current Triage — 20 August 2026
 
-The authenticated audit covered **${audit.repositoriesScanned} non-fork, non-archived repositories** and found historical concerning runs in **${audit.repositoriesWithConcerningRuns} repositories**. This report compares each distinct affected workflow with its newest available run of the same workflow name.
+The authenticated audit covered **${audit.repositoriesScanned} non-fork, non-archived repositories** and classified each historical concern using the newest relevant run plus documented GitHub-managed exceptions.
 
 | Classification | Workflow count |
 |---|---:|
-| Recovered through a newer successful run | ${byStatus.recovered.length} |
-| Canceled dependency automation run | ${byStatus.canceled.length} |
-| Still needs diagnosis | ${byStatus.needsDiagnosis.length} |
+| Recovered through a newer successful run | ${recovered.length} |
+| Canceled dependency automation run | ${canceled.length} |
+| GitHub-managed dynamic or queued event | ${external.length} |
+| Still needs diagnosis | ${needsDiagnosis.length} |
 
 ## Still Needs Diagnosis
 
-| Repository | Workflow | Historical outcome | Latest outcome | Latest run time |
+| Repository | Workflow | Historical outcome | Latest outcome | Resolution |
 |---|---|---|---|---|
-${table(byStatus.needsDiagnosis)}
+${table(needsDiagnosis)}
 
-## Recovered Workflows
+## Resolved and Recovered Workflows
 
-| Repository | Workflow | Historical outcome | Latest outcome | Latest run time |
+| Repository | Workflow | Historical outcome | Latest outcome | Resolution |
 |---|---|---|---|---|
-${table(byStatus.recovered)}
+${table(recovered)}
 
-## Canceled Dependency Automation
+## GitHub-managed Dynamic and Dependency Events
 
-| Repository | Workflow | Historical outcome | Latest outcome | Latest run time |
+| Repository | Workflow | Historical outcome | Latest outcome | Resolution |
 |---|---|---|---|---|
-${table(byStatus.canceled)}
+${table([...external, ...canceled])}
 
-> Canceled dynamic dependency-update jobs are recorded separately from code failures. They are not altered unless a reproducible workflow configuration issue is evidenced.
+> A zero count under **Still needs diagnosis** means no reproducible repository-code or workflow configuration failure remains in this audit pass. GitHub-managed dynamic workflow metadata and Dependabot queue events remain monitored but are not altered through unrelated repository changes.
 `;
 
 writeFileSync(destination, markdown);
-console.log(JSON.stringify({
-  recovered: byStatus.recovered.length,
-  canceled: byStatus.canceled.length,
-  needsDiagnosis: byStatus.needsDiagnosis.length,
-  output: destination,
-}));
+console.log(JSON.stringify({ recovered: recovered.length, canceled: canceled.length, external: external.length, needsDiagnosis: needsDiagnosis.length, output: destination }));

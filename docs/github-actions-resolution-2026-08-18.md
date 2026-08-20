@@ -28,3 +28,9 @@ The refreshed authenticated audit covered **38 non-fork, non-archived repositori
 A daily workflow-health review is active at **09:15 Asia/Kolkata**. It is intentionally limited to the GitHub and Google Gemini integrations. Each run reviews non-fork repositories, separates GitHub-managed dependency events from code failures, and permits only evidence-backed repair work that preserves Git history; it does not use force-push or rebase.
 
 The verified application checkpoint is also preserved in the private GitHub repository on branch `manus-checkpoint-819ce2fe`. This protected branch was created because the backup default branch had an independent history; it avoids overwriting concurrent work while retaining the complete tested snapshot for a later review or merge.
+
+## 20 August Audit Follow-up
+
+The refreshed account audit again listed five entries needing diagnosis. The `Verify AstraFlow` and `Toolkit Health Check` entries have newer successful replacement runs. The `open-assistant` item is an externally queued Dependabot update. Although GitHub still lists a historical `Copilot cloud agent` workflow for `vscode-copilot-cha`, the current `main` branch contains only `.github/workflows/daily-jobs.yml`; there is therefore no current workflow source to repair or disable. The historical provider failure is retained as audit history, not an active code failure.
+
+The GitHub Actions metadata endpoint identifies that Copilot entry as `dynamic/copilot-swe-agent/copilot`, with its sole run on branch `copilot/ai-code` dated 2 July 2026. The normal GitHub workflow-disable endpoint returned HTTP 422, **“Unable to disable this workflow.”** This is a GitHub-managed dynamic entry, not a repository YAML workflow; its source is absent from `main`, it has no newer runs, and it cannot be changed through the repository workflow API. No repository code change can safely address it.

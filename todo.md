@@ -96,3 +96,13 @@
 - [x] Preserve the verified runtime dependency graph unless a targeted remediation passes the full test suite and server startup validation.
 
 - [x] Document the current stable-lockfile dependency advisory triage, including why broad automated updates were rejected.
+
+- [x] Run production build and isolated production server startup validation on the stable dependency graph.
+
+- [x] Reconcile the five newly surfaced owned-repository workflow audit entries in persisted summary and resolution records.
+- [x] Document whether any reproducible workflow failure remains after the five-entry reconciliation.
+
+- [x] Add deterministic classification coverage for renamed workflows and GitHub-managed dynamic workflow entries.
+
+- [x] Resolve the contradictory vscode-copilot-cha Copilot cloud-agent metadata and source-file state before closing its audit item.
+- [x] Verify whether the historical Copilot cloud-agent workflow remains runnable, then capture a fresh outcome or document a confirmed unavailable workflow source.
