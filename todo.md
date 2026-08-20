@@ -104,6 +104,8 @@
 
 - [x] Add deterministic classification coverage for renamed workflows and GitHub-managed dynamic workflow entries.
 
+- [x] Resume and verify the active daily GitHub workflow-health recheck after its paused state was detected.
+
 - [x] Resolve the contradictory vscode-copilot-cha Copilot cloud-agent metadata and source-file state before closing its audit item.
 - [x] Verify whether the historical Copilot cloud-agent workflow remains runnable, then capture a fresh outcome or document a confirmed unavailable workflow source.
 
