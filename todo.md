@@ -82,7 +82,7 @@
 - [ ] Keep Gmail Web OAuth credential validation deferred until the user resumes that setup.
 
 - [x] Replace the daily job scanner's rebase-based push retry with a rebase-free artifact snapshot and retry strategy.
-- [ ] Recheck GitHub-managed queued Dependabot events in gmail-resume-mailer and pharma-qa-job-tracker when GitHub scheduler capacity advances.
+- [x] Recheck GitHub-managed queued Dependabot events in gmail-resume-mailer and pharma-qa-job-tracker when GitHub scheduler capacity advances.
 - [ ] Perform an interactive GitHub OAuth authorization and private-repository import from the published Agent Desk.
 
 - [x] Refresh the complete owned-repository GitHub Actions inventory and isolate currently failed workflows from historical or GitHub-managed queue events.
@@ -106,3 +106,8 @@
 
 - [x] Resolve the contradictory vscode-copilot-cha Copilot cloud-agent metadata and source-file state before closing its audit item.
 - [x] Verify whether the historical Copilot cloud-agent workflow remains runnable, then capture a fresh outcome or document a confirmed unavailable workflow source.
+
+- [x] Diagnose why the published GitHub OAuth start route reports that connection is not configured.
+- [ ] Restore the production GitHub OAuth configuration and verify the published start route redirects securely to GitHub.
+
+- [x] Return an explicit authentication-required response from GitHub OAuth start instead of conflating it with missing OAuth configuration.
