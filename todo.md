@@ -113,3 +113,6 @@
 - [ ] Restore the production GitHub OAuth configuration and verify the published start route redirects securely to GitHub.
 
 - [x] Return an explicit authentication-required response from GitHub OAuth start instead of conflating it with missing OAuth configuration.
+
+- [x] Diagnose the newly failed ai-agent-hub Daily Maintenance workflow from its retained GitHub Actions logs.
+- [x] Apply and verify a non-history-rewriting repair for the ai-agent-hub Daily Maintenance workflow if the failure is repository-controlled.
